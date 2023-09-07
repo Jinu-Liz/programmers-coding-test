@@ -8,6 +8,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +20,7 @@ public class CodeTest {
     String skip = "wbqd";
     int index = 5;
 
-    List<String> alphabet = IntStream.range(97, 123)
+    List<String> alphabet = IntStream.range('a', 'z' + 1)
       .filter(ascii -> skip.chars().allMatch(ch -> ascii != ch))
       .mapToObj(ascii -> Character.toString((char) ascii))
       .collect(Collectors.toList());
@@ -90,5 +91,56 @@ public class CodeTest {
       .toArray();
 
     assertThat(answer).isEqualTo(new int[] {1, 3, 0, 1});
+  }
+
+  /**
+   * 가운데 글자 가져오기
+   */
+  @Test
+  void centerLetter()  {
+    String s = "abcde";
+    int length = s.length();
+    int centerLength = length / 2;
+    System.out.println("length % 2 = " + length % 2);
+    String a = ((length % 2) == 1) ? s.substring(centerLength, centerLength + 1) : s.substring(centerLength - 1, centerLength + 1);
+    System.out.println("a = " + a);
+  }
+
+  @Test
+  void divisor() {
+    int[] arr = { 5, 9, 7, 10 };
+    int divisor = 5;
+
+    int[] answer = Arrays.stream(arr)
+      .filter(num -> num % divisor == 0)
+      .sorted()
+      .toArray();
+
+    int[] arr2 = answer.length != 0 ? answer : new int[] {-1};
+    assertThat(arr2).isEqualTo(new int[] {5, 10});
+  }
+
+  /**
+   * 두 정수 사이의 합
+   */
+  @Test
+  void plusNumbers() {
+    int a = -1, b = -10000000;
+    int min = Math.min(a, b);
+    int max = Math.max(a, b);
+
+    long sum = LongStream.range(min, max + 1).sum();
+    System.out.println("sum = " + sum);
+//    long answer = a != b ? sum : a;
+//    assertThat(answer).isEqualTo(12);
+  }
+
+  @Test
+  void stringSorting() {
+    String[] arr = {"sun", "bed", "car"};
+    List<String> collect = Arrays.stream(arr)
+      .sorted()
+      .collect(Collectors.toList());
+    System.out.println("collect = " + collect);
   }
 }
