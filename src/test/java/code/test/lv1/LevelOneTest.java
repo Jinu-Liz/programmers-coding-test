@@ -36,17 +36,16 @@ public class LevelOneTest {
     String[] keymap = {"ABACD", "BCEFD"};
     String[] targets = {"ABCD","AABB"};
 
-    Map<String, Integer> mapping = new HashMap<>();
-    for (int i = 0; i < keymap.length; i++) {
-      String nowStr = keymap[i];
+    Map<Character, Integer> mapping = new HashMap<>();
+    for (String nowStr : keymap) {
       char[] charArray = nowStr.toCharArray();
       for (int j = 0; j < charArray.length; j++) {
         int count = j + 1;
-        String str = String.valueOf(charArray[j]);
+        char str = charArray[j];
         if (!mapping.containsKey(str)) {
           mapping.put(str, count);
         } else {
-          if (mapping.get(str) > count) mapping.put(str, count);
+          mapping.put(str, Math.min(mapping.get(str), count));
         }
       }
     }
@@ -57,7 +56,7 @@ public class LevelOneTest {
       String nowStr = targets[i];
       char[] charArray = nowStr.toCharArray();
       for (int j = 0; j < charArray.length; j++) {
-        String str = String.valueOf(charArray[j]);
+        char str = charArray[j];
         if (!mapping.containsKey(str)) {
           count = -1;
           break;
