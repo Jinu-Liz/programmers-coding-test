@@ -1,10 +1,13 @@
 package code.test.lv1;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class LevelOneTest {
 
@@ -67,6 +70,26 @@ public class LevelOneTest {
       result[i] = count;
     }
 
-    System.out.println(Arrays.toString(result));
+    assertThat(result).isEqualTo(new int[]{9, 4});
+  }
+
+  @Test
+  void smallSizeString() {
+    String t = "3141592";
+    String p = "271";
+
+    int pSize = p.length();
+    int result = 0;
+    for (int i = 0; i < t.length(); i++) {
+      int lastNum = pSize + i;
+      if (lastNum > t.length()) break;
+
+      long tNumber = Long.parseLong(t.substring(i, lastNum));
+      long pNumber = Long.parseLong(p);
+
+      if (tNumber <= pNumber) result++;
+    }
+
+    assertThat(result).isEqualTo(2);
   }
 }
