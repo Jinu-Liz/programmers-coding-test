@@ -1,13 +1,12 @@
 package code.test.lv1;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LevelOneTest {
 
@@ -92,4 +91,30 @@ public class LevelOneTest {
 
     assertThat(result).isEqualTo(2);
   }
+
+  @Test
+  void running() {
+    String[] players = {"mumu", "soe", "poe", "kai", "mine"};
+    String[] callings = {"kai", "kai", "mine", "mine"};
+
+    Map<String, Integer> playerRankMap = new HashMap<>();
+    for (int i = 0; i < players.length; i++) {
+      playerRankMap.put(players[i], i);
+    }
+
+    for (int i = 0; i < callings.length; i++) {
+      String calledPlayer = callings[i];
+      Integer calledIdx = playerRankMap.get(calledPlayer);
+      Integer bfIdx = calledIdx - 1;
+      String bfPlayer = players[bfIdx];
+      players[bfIdx] = calledPlayer;
+      players[calledIdx] = bfPlayer;
+
+      playerRankMap.put(calledPlayer, bfIdx);
+      playerRankMap.put(bfPlayer, calledIdx);
+    }
+
+    assertThat(players).isEqualTo(new String[]{"mumu", "kai", "mine", "soe", "poe"});
+  }
+
 }
