@@ -69,4 +69,20 @@ public class CodeTest {
 
     System.out.println(Arrays.toString(arr));
   }
+
+  @Test
+  void discount() {
+    int price = 150000;
+    double result = 0;
+
+    if (price > 500000) {
+      result = price * 0.8;
+    } else if (price > 300000) {
+      result = price * 0.9;
+    } else {
+      result = price * 0.95;
+    }
+
+    System.out.println("result = " + result);
+  }
 }
